@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>ajax调用接口</title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	<form action="" method="post">
+		<p>用户名：<input type="text" name="user_name"></p>
+		<p>密码：<input type="text" name="user_pwd"></p>
+		<p><button>登录</button></p>
+	</form>
+	<button id="code">第三方登录</button>
+</body>
+<script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+<script>
+	$(document).on('click','#code',function() {
+
+		location.href='http://www.phpone.com/demo.php?action=login';
+
+	});
+</script>
+</html>

@@ -1,0 +1,809 @@
+svn://114.55.140.108/repository
+
+表字段格式：fxb_表名首字母_字段首字母
+
+入库表：Add library
+		自增ID            fxb_id
+		采购订单编号      fxb_purchasenum
+		采购订单类型      fxb_purchasetype
+		货物来源            fxb_source
+		生成日期            fxb_purchasedate
+		入库单编号       fxb_Storagenum
+		货品名称            fxb_goodsname
+		货品名称(自定义)   fxb_customsname
+		预估入库重量      fxb_predict_weight
+		单价(元)           fxb_unit_price 
+		总价(元)           fxb_price
+		司磅净重(公斤)    fxb_weight
+		入库时间            fxb_addtime
+		操作人员            fxb_username
+		入库状态            fxb_state
+
+
+出库表：
+		自增ID            fxb_id
+		销售订单编号      fxb_salesnum
+		销售订单类型      fxb_salestype
+		出库日期            fxb_salesdate
+		出自仓库id      fxb_
+		出自仓库名称      fxb_
+		出库单编号       fxb_outgoingnum
+		货品名称            fxb_goodsname
+		货品名称(自定义)   fxb_customname
+		单价(元)           fxb_unit_price
+		预估收入(元)     fxb_estimate_price
+		实际收入(元)     fxb_actual_price
+		出库重量（公斤）    fxb_weight
+		操作人员id      fxb_userid
+		操作人员            fxb_username
+		出库状态            fxb_state
+
+盘点记录表：
+		tablename:check_record
+		自增id                fxb_id
+		更改的数据的id         fxb_product_id
+		更改的货品的名称       fxb_product_name
+		自定义货品名称         fxb_custom_name
+		添加还是减少           fxb_add_reduce
+		变动的数量            fxb_change_num
+		备注内容              fxb_remarks
+		平台id               fxb_terrace_id
+		平台名称              fxb_terrace_name
+		操作人员id           fxb_user_id
+		操作人员姓名          fxb_user_name
+		当前主机IP           fxb_mainframe
+		更改的时间            fxb_write_time
+
+
+
+建表语句：create table table1 (                              fxb_id int(11) primary key auto_increment not null,
+								fxb_purchasenum varchar(18) not null,
+								fxb_purchasetype varchar(2) not null,
+								fxb_purchasedate varchar(15) not null,
+								fxb_Storagenum varchar(200) not null,
+								fxb_goodsname varchar(200) not null,
+								fxb_weight int(100)  not null,
+								fxb_state tinyint(1) not null
+							);
+
+出库：
+
+自增ID        
+销售订单编号
+销售订单类型
+出库日期        
+出自仓库id
+出自仓库名称
+出库单编号   
+货品名称    
+货品名称(自定义)
+单价(元)   
+预估收入(元) 
+实际收入(元) 
+操作人员id  
+操作人员姓名
+出库重量(公斤)
+出库状态        
+
+出库SQL语句字段： $data = array(
+								're_salesnum'=$sal,
+								're_salestype'=>$type,
+								're_salesdate'=>$dates,
+								're_entrepot_id'=>$id,
+								're_entrepot_name'=>$id.'仓库',
+								're_outgoingnum'=>$out,
+								're_goodsname'=>'B级纸',
+								're_customsname'=>'暂时还没想好嘞',
+								're_unit_price'=>100.5,
+								're_predict_price'=>10050,
+								're_actual_price'=>10000,
+								're_userid'=>2,
+								're_username'=>'李四',
+								're_weight'=>100,
+								're_state'=>2,
+							);
+
+|字段|类型|是否自增|默认|注释|是否为空|
+|:----    |:-------    |:--- |-- -|------      |---|
+|re_id    |int(11)     |是 |  |  自增ID       |否|
+|re_salesnum |varchar(40) |否 |    |   销售订单编号  |否|
+|re_salestype |tinyint(1) |否   |    |   销售订单类型(云仓，纸厂，外销平台)    |否|
+|re_salesdate     |varchar(30) |否   |    |    出库日期     |否|
+|re_entrepot_id |int(11)     |否   |   |   出自仓库id  |否|
+|re_entrepot_name |varchar(40)     |否   |   |   出自仓库名称  |否|
+|re_outgoingnum   |varchar(30) |否   |    |    出库单编号     |否|
+|re_goodsname |varchar(40)     |否   |   |   货品名称  |否|
+|re_customsname |varchar(40)     |否   |   |   货品名称(自定义)  |是|
+|re_unit_price | decimal(10,2) | 否 |  | 单价(元) | 否 |
+|re_predict_price | decimal(10,2) | 否 |  | 预估收入(元) | 否 |
+|re_actual_price | decimal(10,2) | 否 |  | 实际收入(元) | 否 |
+|re_userid |int(11)     |否   |   |   操作人员id  |否|
+|re_username |varchar(20)     |否   |   |   操作人员姓名  |否|
+|re_weight |decimal(10,3)     |否   |   |   出库重量(公斤)  |否|
+|re_state |tinyint(1)     |否   | 2  |   "记录当前出库的状态 1出库成功 2待处理 3已取消"  |否|
+|created_at|varchar(30)|否||创建时间|否|
+|updated_at|varchar(30)|否||更新时间|否|
+
+出库表sql语句 ：create table fxb_retrieval(
+		re_id int(11) primary key not null auto_increment comment '自增id',
+		re_salesnum varchar(40) not null comment '销售订单编号',
+		re_salestype tinyint(1) not null comment '销售订单类型(1云仓，2纸厂，3外销平台 4手动出库)',
+		re_salesdate varchar(30) not null comment '出库日期',
+		re_entrepot_id int(11) not null comment '出自仓库id',
+		re_entrepot_name varchar(40) not null comment '出自仓库名称',
+		re_outgoingnum varchar(30) not null comment '出库单编号',
+		re_goodsname varchar(40) not null comment '货品名称',
+		re_customsname varchar(40) comment '货品名称(自定义)',
+		re_unit_price decimal(10,2) not null comment '单价(元)',
+		re_predict_price decimal(10,2) not null comment '预估收入(元)',
+		re_actual_price decimal(10,2) not null comment '实际收入(元)',
+		re_userid int(11) not null comment '操作人员id',
+		re_username varchar(20) not null comment '操作人员姓名',
+		re_weight decimal(10,3) not null comment '出库重量(公斤)',
+		re_state tinyint(1) not null comment '记录当前出库的状态 1出库成功 2待处理 3已取消',
+		created_at int(10),
+		updated_at int(10)
+	   );
+
+		自增id                cr_id
+		更改的数据的id         cr_product_id
+		更改的货品的名称       cr_product_name
+		自定义货品名称         cr_custom_name
+		添加还是减少           cr_add_reduce
+		原本的数量             cr_original_num
+		变动的数量            cr_change_num
+		备注内容              cr_remarks
+		平台id               cr_terrace_id
+		平台名称              cr_terrace_name
+		操作人员id           cr_user_id
+		操作人员姓名          cr_user_name
+		审核人id              cr_auditor_id
+		审核人姓名           cr_auditor_name
+		当前状态              cr_state
+		审核因素              cr_factor
+		当前主机IP           cr_mainframe
+		更改的时间            cr_write_time
+
+		create table fxb_check_record(
+			cr_id int(11) primary key not null auto_increment comment '自增id',
+			cr_product_id int(11) not null comment '更改的数据的id',
+			cr_product_name varchar(40) not null comment '更改的货品的名称',
+			cr_custom_name varchar(40) comment '自定义货品名称',
+			cr_add_reduce tinyint(1) not null comment '添加还是减少',
+			cr_original_num decimal(10,3) not null comment '原本的数量',
+			cr_change_num decimal(10,3) not null comment '变动的数量',
+			cr_remarks text comment '备注的内容',
+			cr_terrace_id int(11) not null comment '品台id',
+			cr_terrace_name varchar(50) not null comment '平台名称',
+			cr_user_id int(11) not null comment '操作人id',
+			cr_user_name varchar(20) not null comment '操作人姓名',
+			cr_auditor_id int(11) not null comment '审核人id',
+			cr_auditor_name varchar(20) not null comment '审核人姓名',
+			cr_state tinyint(1) default '2' not null comment '当前状态：1通过、2待审核、3未通过',
+			cr_factor text comment '审核因素',
+			cr_mainframe int(10) not null comment '当前主机IP',
+			cr_write_time varchar(30) not null comment '更改的时间',
+			created_at int(10),
+			updated_at int(10)
+		);
+
+入库：
+
+自增ID        
+采购订单编号  
+采购订单类型  
+货物来源        
+如果是来自仓库就填写仓库id
+生成日期        
+入库单编号   
+入到仓库id
+入到仓库名称
+货品名称        
+货品名称(自定义)
+预估入库重量
+单价(元)   
+总价(元)   
+司磅净重(公斤)
+入库时间
+操作人员
+入库状态    
+
+添加SQL语句字段包含： $data = array(
+									'wh_purchasenum'=>$pur,
+									'wh_source'=>$source,
+									'wh_warehouse_id'=>1,
+									'wh_purchasedate'=>$dates,
+									'wh_storagenum'=>$sto,
+									'wh_entrepot_id'=>1,
+									'wh_entrepot_name'=>'1号库',
+									'wh_goodsname'=>'A级纸',
+									'wh_customsname'=>'还没想好嘞',
+									'wh_predict_weight'=>10,
+									'wh_unit_price'=>10.5,
+									'wh_price'=>100,
+									'wh_actual_weight'=>105,
+									'wh_put_in_time'=>'2015-05-24',
+									'wh_userid'=>1,
+									'wh_username'=>'张三',
+									'wh_state'=>2
+								);
+
+
+Array ( [wh_purchasenum] => 12834 [wh_source] => 3 [wh_warehouse_id] => 1 [wh_purchasedate] => 2019-05-27 10:44:43 [wh_storagenum] => 1968 [wh_entrepot_id] => 76 [wh_entrepot_name] => 76号库 [wh_goodsname] => A级纸 [wh_customsname] => 还没想好嘞 [wh_predict_weight] => 10 [wh_unit_price] => 10.5 [wh_price] => 100 [wh_actual_weight] => 105 [wh_put_in_time] => 2015-05-24 [wh_userid] => 1 [wh_username] => 张三 [wh_state] => 2 )
+
+$data = array(
+			'wh_purchasenum'=>12834,
+			'wh_source'=>3,
+			'wh_warehouse_id'=>1,
+			'wh_purchasedate'=>'2019-05-27 10:44:43',
+			'wh_storagenum'=>1968,
+			'wh_entrepot_id'=>1,
+			'wh_entrepot_name'=>'1号库',
+			'wh_goodsname'=>'A级纸',
+			'wh_customsname'=>'还没想好嘞',
+			'wh_predict_weight'=>10,
+			'wh_unit_price'=>10.5,
+			'wh_price'=>100,
+			'wh_actual_weight'=>105,
+			'wh_put_in_time'=>'2015-05-24',
+			'wh_userid'=>1,
+			'wh_username'=>'张三',
+			'wh_state'=>2
+		);
+
+data=array('wh_purchasenum'=>12834,'wh_source'=>3,'wh_warehouse_id'=>1,'wh_purchasedate'=>'2019-05-27 10:44:43','wh_storagenum'=>1968,'wh_entrepot_id'=>1,'wh_entrepot_name'=>'1号库','wh_goodsname'=>'A级纸','wh_customsname'=>'还没想好嘞','wh_predict_weight'=>10,'wh_unit_price'=>10.5,'wh_price'=>100,'wh_actual_weight'=>105,'wh_put_in_time'=>'2015-05-24','wh_userid'=>1,'wh_username'=>'张三','wh_state'=>2);
+
+{
+	'data'=[
+			{'wh_purchasenum':12834},
+			{'wh_source':3},
+			{'wh_warehouse_id':1},
+			{'wh_purchasedate':'2019-05-27 10:44:43'},
+			{'wh_storagenum':1968},
+			{'wh_entrepot_id':1},
+			{'wh_entrepot_name':'1号库'},
+			{'wh_goodsname':'A级纸'},
+			{'wh_customsname':'还没想好嘞'},
+			{'wh_predict_weight':10},
+			{'wh_unit_price':10.5},
+			{'wh_price':100},
+			{'wh_actual_weight':105},
+			{'wh_put_in_time':'2015-05-24'},
+			{'wh_userid':1},
+			{'wh_username':'张三'},
+			{'wh_state':2}
+		)
+}
+
+wh_purchasenum=12834& 
+wh_source=3&
+wh_warehouse_id=1&
+wh_purchasedate=2019-05-27 10:44:43&
+wh_storagenum=1968&
+wh_entrepot_id=1&
+wh_entrepot_name=1号库&
+wh_goodsname=A级纸&
+wh_customsname=还没想好嘞&
+wh_predict_weight=10&
+wh_unit_price=10.5&
+wh_price=100&
+wh_actual_weight=105&
+wh_put_in_time=2015-05-24&
+wh_userid=1&
+wh_username=张三&
+wh_state=2
+
+|字段|类型|是否自增|默认|注释|是否为空|
+|:----    |:-------    |:--- |-- -|------      |---|
+|wh_id    |int(11)     |是 |  |  自增ID       |否|
+|wh_purchasenum |varchar(40) |否 |    |   采购订单编号  |否|
+|wh_source |varchar(20)| 否 |  | 货物来源（商贩，仓库，其他……） |否|
+|wh_warehouse_id |int(11)| 否 |  | 货物来源（如果是来源于仓库，请填写仓库id） |是|
+|wh_purchasedate     |varchar(30) |否   |    |    生成日期     |否|
+|wh_storagenum |varchar(40)     |否   |   |   入库单编号  |否|
+|wh_entrepot_id |int(11)     |否   |   |   入到仓库id  |否|
+|wh_entrepot_name |varchar(40)     |否   |   |   入到仓库名称  |否|
+|wh_goodsname |varchar(40)     |否   |   |   货品名称  |否|
+|wh_customsname |varchar(40)     |否   |   |   货品名称(自定义)  |是|
+|wh_predict_weight | decimal(10,3) | 否 |  | 预估入库重量 | 否 |
+|wh_unit_price | decimal(10,2) | 否 |  | 单价(元) | 否 |
+|wh_price | decimal(10,2) | 否 |  | 总价(元) | 否 |
+|wh_actual_weight |decimal(10,3)     |否   |   |   司磅净重（公斤）  |否|
+|wh_put_in_time| varchar(30) | 否 |  | 入库时间 | 否 |
+|wh_userid |int(11)     |否   |   |   操作人员id  |否|
+|wh_username |varchar(20)     |否   |   |   操作人员姓名  |否|
+|wh_state |tinyint(1)     |否   | 2  |   "记录当前入库的状态 1入库成功 2待处理 3已取消"  |否|
+|created_at|varchar(30)|否||创建时间|否|
+|updated_at|varchar(30)|否||更新时间|否|
+
+入库表sql语句： create table fxb_warehousing(
+				wh_id int(11) primary key auto_increment not null comment '自增ID',
+				wh_purchasenum varchar(40) not null comment '采购订单编号',
+				wh_source varchar(20) not null comment '货物来源（1商贩，2仓库，3其他……）',
+				wh_warehouse_id int(11) comment '货物来源（如果是来源于仓库，请填写仓库id）',
+				wh_purchasedate varchar(30) not null comment '生成日期',
+				wh_storagenum varchar(40) not null comment '入库单编号',
+				wh_entrepot_id int(11) not null comment '入到仓库id',
+				wh_entrepot_name varchar(40) not null comment '入到仓库名称',
+				wh_goodsname varchar(40) not null comment '货品名称',
+				wh_customsname varchar(40) comment '货品名称(自定义)',
+				wh_predict_weight decimal(10,3) not null comment '预估入库重量',
+				wh_unit_price decimal(10,2) not null comment '单价(元)',
+				wh_price decimal(10,2) not null comment '总价(元)',
+				wh_actual_weight decimal(10,3) not null comment '司磅净重（公斤）',
+				wh_put_in_time varchar(30) not null comment '入库时间',
+				wh_userid int(11) not null comment '操作人员id',
+				wh_username varchar(20) not null comment '操作人员姓名',
+				wh_state tinyint(1) default '2' not null comment '记录当前入库的状态 1入库成功 2待处理 3已取消',
+				created_at int(10),
+				updated_at int(10)
+			);
+
+
+
+
+
+array('wh_id'=>3,'wh_source'=>3,'wh_username'=>'张三');
+
+current_page
+
+http://114.55.140.108:4999/web/#/13?page_id=336
+
+接口参数：搜索的条件（采购订单号、入库订单号、入库日期、自定义货品名称）、分页参数（每页展示的条数、要查看的页码）、
+		purchasenum、storagenum、put_in_time、customsname、                         size、page
+
+入库查询的条件可以有：采购订单号、入库单编号、 入库日期、自定义的货品的名称
+
+
+
+	
+**简要描述：** 
+
+- 采购入库记录
+
+**请求URL：** 
+- ` http://xx.com/api/user/register `
+  
+**请求方式：**
+- POST 
+
+**参数：** 
+
+|参数名|必选|类型|说明|
+|:----    |:---|:----- |-----   |
+|purchasenum |否  |string |采购订单号   |
+|storagenum  |否  |string | 入库订单号  |
+|put_in_time |否  |string | 入库日期    |
+|customsname |否  |string | 自定义货品名称    |
+|size |是  |int | 每页展示条数（默认10条）    |
+|page |是  |int | 当前页码（默认第1页）    |
+
+ **返回示例**
+
+``` 
+  {
+	"error_code": 0,
+	"data": {
+	  "uid": "1",
+	  "username": "12154545",
+	  "name": "吴系挂",
+	  "groupid": 2 ,
+	  "reg_time": "1436864169",
+	  "last_login_time": "0",
+	}
+  }
+```
+
+ **返回参数说明** 
+
+|参数名|类型|说明|
+|:-----  |:-----|-----                           |
+|groupid |int   |用户组id，1：超级管理员；2：普通用户  |
+
+ **备注** 
+
+- 更多返回错误代码请看首页的错误代码描述
+
+
+
+Array
+(
+	[message_code] => 200
+	[message_msg] => 查询成功
+	[data] => Array
+		(
+			[lists] => Array
+				(
+					[0] => Array
+						(
+							[wh_id] => 6
+							[wh_purchasenum] => 10516
+							[wh_source] => 2
+							[wh_warehouse_id] => 1
+							[wh_purchasedate] => 2019-05-24 16:01:45
+							[wh_storagenum] => 9690
+							[wh_entrepot_id] => 48
+							[wh_entrepot_name] => 48号库
+							[wh_goodsname] => A级纸
+							[wh_customsname] => C级纸
+							[wh_predict_weight] => 10.000
+							[wh_unit_price] => 10.50
+							[wh_price] => 100.00
+							[wh_actual_weight] => 105.000
+							[wh_put_in_time] => 2015-05-24
+							[wh_userid] => 1
+							[wh_username] => 张三
+							[wh_state] => 2
+							[created_at] => 
+							[updated_at] => 
+						)
+				)
+			[total] => 3
+		)
+)
+
+{
+	"message_code":200,
+	"message_msg":"查询成功",
+	"data":{
+		"lists":[{
+			"wh_id":1,
+			"wh_purchasenum":"10516",
+			"wh_source":"2",
+			"wh_warehouse_id":1,
+			"wh_purchasedate":"2019-05-24 16:01:45",
+			"wh_storagenum":"9690",
+			"wh_entrepot_id":48,
+			"wh_entrepot_name":"48号库",
+			"wh_goodsname":"A级纸",
+			"wh_customsname":"C级纸",
+			"wh_predict_weight":"10.000",
+			"wh_unit_price":"10.50",
+			"wh_price":"100.00",
+			"wh_actual_weight":"105.000",
+			"wh_put_in_time":"2015-05-24",
+			"wh_userid":1,
+			"wh_username":"张三",
+			"wh_state":2,
+			"created_at":null,
+			"updated_at":null
+			}],
+		"total":1
+	}
+}
+
+
+|参数名|类型|说明|
+|:-----            |:-----    |-----                           |
+|message_code    |number   | 状态码  |
+|message_msg    |string   | 状态说明  |
+|data    |object   | 返回数据对象  |
+|wh_purchasenum    |string   | 采购订单编号  |
+|wh_source         |string   | 货物来源（1商贩，2仓库，3其他……）  |
+|wh_warehouse_id   |int       | 货物来源（如果是来源于仓库，请填写仓库id）  |
+|wh_storagenum     |string   | 入库单编号  |
+|wh_entrepot_id    |int       | 入到仓库id  |
+|wh_entrepot_name  |string   | 入到仓库名称  |
+|wh_goodsname      |string   | 货品名称  |
+|wh_customsname    |string   | 货品名称（自定义）  |
+|wh_predict_weight |decimal   | 预估入库重量  |
+|wh_unit_price     |decimal   | 单价(元)  |
+|wh_price          |decimal   | 总价(元)  |
+|wh_actual_weight  |decimal   | 司磅净重（公斤）  |
+|wh_put_in_time    |string   | 入库时间  |
+|wh_userid         |int       |  操作人员id  |
+|wh_username       |string   | 操作人员姓名  |
+|wh_state          |tinyint   | 1入库成功 2待处理 3已取消 |
+
+
+
+**简要描述：** 
+
+- 采购入库列表
+
+**请求URL：** 
+- ` https://xx.com/warehouse/list `
+  
+**请求方式：**
+- POST 
+
+**参数：** 
+
+|参数名|必选|类型|说明|
+|:----    |:---|:----- |-----   |
+|token |是  |string |用户token   |
+|wh_purchasenum |否  |string |采购订单号 搜索   |
+|wh_storagenum  |否  |string | 入库订单号 搜索  |
+|wh_put_in_time |否  |string | 入库日期(Y-m-d) 搜索    |
+|wh_customsname |否  |string | 自定义货品名称 搜索    |
+|size |是  |int | 每页展示条数（默认10条）    |
+|page |是  |int | 当前页码（默认第1页）    |
+
+
+ **返回示例**
+
+``` 
+{
+	"code":10000,
+	"msg":{
+		"lists":[{
+			"0":[{
+				"wh_id":1,
+				"wh_purchasenum":"10516",
+				"wh_source":"2",
+				"wh_warehouse_id":1,
+				"wh_purchasedate":"2019-05-24 16:01:45",
+				"wh_storagenum":"9690",
+				"wh_entrepot_id":47,
+				"wh_entrepot_name":"47号库",
+				"wh_goodsname":"A级纸",
+				"wh_customsname":"C级纸",
+				"wh_predict_weight":"10.000",
+				"wh_unit_price":"10.50",
+				"wh_price":"100.00",
+				"wh_actual_weight":"105.000",
+				"wh_put_in_time":"2015-05-24",
+				"wh_userid":1,
+				"wh_username":"张三",
+				"wh_state":2,
+				"created_at":null,
+				"updated_at":null
+				}],
+			"1":[{
+				"wh_id":2,
+				"wh_purchasenum":"10516",
+				"wh_source":"2",
+				"wh_warehouse_id":1,
+				"wh_purchasedate":"2019-05-24 16:01:45",
+				"wh_storagenum":"9690",
+				"wh_entrepot_id":48,
+				"wh_entrepot_name":"48号库",
+				"wh_goodsname":"A级纸",
+				"wh_customsname":"C级纸",
+				"wh_predict_weight":"10.000",
+				"wh_unit_price":"10.50",
+				"wh_price":"100.00",
+				"wh_actual_weight":"105.000",
+				"wh_put_in_time":"2015-05-24",
+				"wh_userid":1,
+				"wh_username":"李四",
+				"wh_state":2,
+				"created_at":null,
+				"updated_at":null
+				}],
+			}],
+		"total":1
+	}
+} 
+
+{
+  "code":10001,
+  "msg":"请去掉其他参数或填写正确参数"
+}
+ 
+```
+
+ **返回参数说明** 
+
+|参数名|类型|说明|
+|:-----            |:-----    |-----                           |
+|wh_purchasenum    |varchar   | 采购订单编号  |
+|wh_source         |varchar   | 货物来源（1商贩，2仓库，3其他……）  |
+|wh_warehouse_id   |int       | 货物来源（如果是来源于仓库，请填写仓库id）  |
+|wh_storagenum     |varchar   | 入库单编号  |
+|wh_entrepot_id    |int       | 入到仓库id  |
+|wh_entrepot_name  |varchar   | 入到仓库名称  |
+|wh_goodsname      |varchar   | 货品名称  |
+|wh_customsname    |varchar   | 货品名称（自定义）  |
+|wh_predict_weight |decimal   | 预估入库重量  |
+|wh_unit_price     |decimal   | 单价(元)  |
+|wh_price          |decimal   | 总价(元)  |
+|wh_actual_weight  |decimal   | 司磅净重（公斤）  |
+|wh_put_in_time    |varchar   | 入库时间  |
+|wh_userid         |int       |  操作人员id  |
+|wh_username       |varchar   | 操作人员姓名  |
+|wh_state          |tinyint   | 1入库成功 2待处理 3已取消 |
+
+ **备注** 
+
+- 更多返回错误代码请看首页的错误代码描述
+
+
+**简要描述：** 
+
+- 采购入库记录
+
+**请求URL：** 
+- ` https://xx.com/warehouse/add `
+  
+**请求方式：**
+- POST 
+
+**参数：** 
+
+|参数名|必选|类型|说明|
+|:----    |:---|:----- |-----   |
+|token |是  |string | 用户token   |
+|wh_purchasenum |是  |string | 采购订单编号    |
+|wh_source     |是  |string | 采购订单类型    |
+|wh_warehouse_id     |是  |string | 仓库id    |
+|wh_purchasedate     |是  |string | 生成日期    |
+|wh_entrepot_id     |是  |string | 入到仓库id    |
+|wh_entrepot_name     |是  |string | 入到仓库名称    |
+|wh_goodsname     |是  |string | 货品名称    |
+|wh_predict_weight     |是  |string | 预估入库重量    |
+|wh_unit_price     |是  |string | 单价(元)    |
+|wh_price     |是  |string | 总价(元)    |
+|namewh_actual_weight     |是  |string | 司磅净重(公斤)    |
+|wh_put_in_time     |是  |string | 入库时间    |
+|wh_userid     |是  |string | 操作人id    |
+|wh_username     |是  |string | 操作人姓名    |
+|wh_state     |是  |string | 状态(请填写2)    |
+
+ **返回示例**
+
+``` 
+  {
+	"code":10000,
+	"msg":"入库成功",
+	"data":[]
+  }
+  
+   {
+	"code":10001,
+	"msg":"入库失败",
+	"data":[]
+  }
+  
+```
+
+ **返回参数说明** 
+
+|参数名|类型|说明|
+|:-----  |:-----|-----      |
+|code    |int   | 状态码 |
+| msg| string | 提示说明 |
+
+ **备注** 
+
+- 更多返回错误代码请看首页的错误代码描述
+
+
+入库单：fxb_warehousing
+
+自增ID            wh_id
+入库单编号         wh_numbers
+关联货品id         wh_commodity_id
+货品名称 		  wh_goodsname
+包重 	          wh_weight
+入库状态          wh_status
+入库包数          wh_packages
+入库包号 		 bag_number
+入库时间          add_time
+操作人id           wh_userid
+操作人姓名         wh_username
+记录时间           created_at
+更新时间           updated_at
+
+-  入库表
+
+|字段|类型|是否自增|默认|注释|是否为空|
+|:----    |:-------    |:--- |-- -|------      |---|
+|wh_id    |int(11)     |是 |  |  自增ID       |否|
+|wh_time     |varchar(30) |否   |    |    生成日期     |否|
+|wh_numbers |varchar(40)     |否   |   |   入库单编号  |否|
+|wh_commodity_id |int(11)     |否   |   |   关联货品id  |否|
+|wh_goodsname |varchar(40)     |否   |   |   货品名称  |否|
+|wh_weight |decimal(10,3)     |否   |   |   包重（吨）  |否|
+|wh_packages |tinyint(1)     |否   | 1  |   入库包数  |否|
+|bag_number |varchar(40)     |否   |   |   入库包号  |否|
+|wh_userid |int(11)     |否   |   |   操作人员id  |否|
+|wh_username |varchar(20)     |否   |   |   操作人员姓名  |否|
+|wh_status |tinyint(1)     |否   | 1  |   "记录当前入库的状态 1待处理 2入库成功 3已取消"  |否|
+|created_at|varchar(30)|否||创建时间|否|
+|updated_at|varchar(30)|否||更新时间|否|
+
+
+- 备注：无
+
+create table fxb_warehousing_1(
+	wh_id int(11) primary key not null auto_increment comment '自增id',
+	wh_numbers varchar(40) not null comment '入库单编号',
+	wh_commodity_id int(11) not null comment '关联货品id',
+	wh_goodsname varchar(40) not null comment '货品名称',
+	wh_weight decimal(10,3) not null comment '包重(吨)',
+	wh_packages tinyint(1) default 1 not null comment '入库包数',
+	bag_number varchar(40) not null comment '入库包号', 
+	wh_status tinyint(1) default 1 not null comment '当前状态：1待入库、2已入库、3已取消',
+	wh_time varchar(30) not null comment '入库时间',
+	wh_userid int(11) not null comment '操作人id',
+	wh_username varchar(30) not null comment '操作人姓名',
+	created_at int(10),
+	updated_at int(10)
+);
+alter table fxb_warehousing_1 comment ='入库单'
+
+
+
+出库单：fxb_retrieval
+
+自增ID 			re_id
+销售订单编号 		re_salesnum
+销售订单类型(云仓，纸厂，外销平台) re_salestype
+出库单编号 		re_numbers
+关联货品id 		re_commodity_id
+货品名称 		re_goodsname
+出库重量 		re_weight
+出库状态			re_status
+出库包数 		re_packages
+出库去处 		re_whither
+出库时间 		re_time
+操作人id 		re_userid
+操作人姓名 		re_username
+记录时间 		created_at
+更新时间 		updated_at
+
+    
+-  出库表
+
+|字段|类型|是否自增|默认|注释|是否为空|
+|:----    |:-------    |:--- |-- -|------      |---|
+|re_id    |int(11)     |是 |  |  自增ID       |否|
+|re_salesnum |varchar(40) |否 |    |   销售订单编号  |是|
+|re_salestype |tinyint(1) |否   |    |   销售订单类型(1云仓，2纸厂，3外销平台 4手动出库)    |否|
+|re_time     |varchar(30) |否   |    |    出库日期     |否|
+|re_numbers   |varchar(30) |否   |    |    出库单编号     |否|
+|re_commodity_id |varchar(40)     |否   |   |   关联分类id  |否|
+|re_goodsname |varchar(40)     |否   |   |   货品名称  |否|
+|re_packages |varchar(40)     |否   |   |   出库包数  |否|
+|re_whither |varchar(40)     |否   |   |   出库去处  |否|
+|re_userid |int(11)     |否   |   |   操作人员id  |否|
+|re_username |varchar(20)     |否   |   |   操作人员姓名  |否|
+|re_weight |decimal(10,3)     |否   |   |   出库重量(公斤)  |否|
+|re_status |tinyint(1)     |否   | 1  |   "记录当前出库的状态 1待处理 2出库成功 3已取消"  |否|
+|created_at|varchar(30)|否||创建时间|否|
+|updated_at|varchar(30)|否||更新时间|否|
+
+
+- 备注：无
+
+create table fxb_retrieval_1(
+	re_id int(11) primary key not null auto_increment comment '自增id',
+	re_salesnum varchar(40) comment '销售订单编号',
+	re_salestype tinyint(1) not null comment '销售订单类型(1云仓，2纸厂，3外销平台 4手动出库)',
+	re_numbers varchar(40) not null comment '出库单编号',
+	re_commodity_id int(11) not null comment '关联货品id',
+	re_goodsname varchar(40) not null comment '货品名称',
+	re_weight decimal(10,3) not null comment '出库重量',
+	re_packages int(10) default 1 not null comment '出库包数',
+	re_whither varchar(100) comment '出库去处',
+	re_status tinyint(1) default 1 not null comment '当前状态：1待出库、2已出库、3已取消',
+	re_time varchar(30) not null comment '出库时间',
+	re_userid int(11) not null comment '操作人id',
+	re_username varchar(30) not null comment '操作人姓名',
+	created_at int(10),
+	updated_at int(10)
+);
+alter table fxb_retrieval_1 comment ='出库单'
+
+
+入库单&出库单的关联关系表
+id        int(11)
+wh_id     int(11) 唯一索引
+re_id     int(11)
+status    tinyint(1) 默认为1(未出库)、2已出库
+created_at int(10),
+updated_at int(10)
+
+create table fxb_inbound_outbound_1(
+	id int(11) primary key not null auto_increment comment '自增id',
+	wh_id int(11) not null comment '入库单id',
+	re_id int(11) not null comment '出库单id',
+	status tinyint(1) default 1 not null comment '是否在库:1表示在库 2表示已出库',
+	created_at int(10),
+	updated_at int(10)
+);
+alter table fxb_inbound_outbound_1 comment ='入库出库关联关系表及状态'
+
+
+

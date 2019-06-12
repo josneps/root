@@ -1,0 +1,170 @@
+|参数名|类型|说明|
+|:-----            |:-----    |-----                           |
+|message_code    |number   | 状态码  |
+|message_msg    |string   | 状态说明  |
+|data    |object   | 返回数据对象  |
+|wh_purchasenum    |string   | 采购订单编号  |
+|wh_source         |string   | 货物来源（1商贩，2仓库，3其他……）  |
+|wh_warehouse_id   |int       | 货物来源（如果是来源于仓库，请填写仓库id）  |
+|wh_storagenum     |string   | 入库单编号  |
+|wh_entrepot_id    |int       | 入到仓库id  |
+|wh_entrepot_name  |string   | 入到仓库名称  |
+|wh_goodsname      |string   | 货品名称  |
+|wh_customsname    |string   | 货品名称（自定义）  |
+|wh_predict_weight |decimal   | 预估入库重量  |
+|wh_unit_price     |decimal   | 单价(元)  |
+|wh_price          |decimal   | 总价(元)  |
+|wh_actual_weight  |decimal   | 司磅净重（公斤）  |
+|wh_put_in_time    |string   | 入库时间  |
+|wh_userid         |int       |  操作人员id  |
+|wh_username       |string   | 操作人员姓名  |
+|wh_state          |tinyint   | 1入库成功 2待处理 3已取消 |
+
+
+    
+-  盘点记录表
+
+|字段|类型|空|默认|注释|
+|:----    |:-------    |:--- |-- -|------      |
+|cr_id   |int(11)     |否 |  |  自增ID           |
+|cr_product_id |int(11) |否 |    |   更改的数据的id  |
+|cr_product_name |varchar(40) |否   |    |   更改的货品的名称    |
+|cr_entrepot_id |int(11) |否   |    |   仓库id    |
+|cr_entrepot_name |varchar(40) |否   |    |   仓库名称    |
+|cr_custom_name     |varchar(40) |是   |    |    自定义货品名称     |
+|cr_add_reduce |tinyiny(1)     |否   |   |   添加还是减少(1增加、2减少)  |
+|cr_original_num |decimal(10,3)     |否   |   |   原本的数量  |
+|cr_change_num |decimal(10,3)     |否   |   |   变动的数量  |
+|cr_remarks |text     |是   |   |   备注内容  |
+|cr_terrace_id |int(11)     |否   |   |   平台id  |
+|cr_terrace_name |varchar(50)     |否   |   |   平台名称  |
+|cr_user_id |int(11)     |否   |   |   操作人员id  |
+|cr_user_name |varchar(20)     |否   |   |   操作人员姓名  |
+|cr_auditor_id |int(11)     |否   |   |   审核人员id  |
+|cr_auditor_name |varchar(20)     |否   |   |   审核人员姓名  |
+|cr_state | tinyint(1)| 否 | 2 | 当前状态：1通过、2待审核、3未通过 |
+|cr_factor | text | 是 |  | 审核因素 |
+|cr_mainframe |int(10)     |否   |   |   当前主机IP  |
+|cr_write_time |varchar(30)     |否   |   |   更改的时间  |
+|created_at |int(10)     |否   |   |     |
+|updated_at |int(10)     |否   |   |     |    |
+
+- 备注：无
+
+
+ **返回参数说明** 
+
+|参数名|类型|说明|
+|:-----  |:-----|-----                           |
+|re_id   | number  | 出库单ID |
+|re_salesnum   | string  | 销售订单编号  |
+|re_salestype  | number  | 销售订单类型(云仓，纸厂，外销平台) |
+|re_salesdate  | string  | 出库日期 |
+|re_entrepot_id   | number   | 出自仓库id |
+|re_entrepot_name   | string  | 出自仓库名称  |
+|re_outgoingnum   | string  | 出库单编号 |
+|re_goodsname   | string  | 货品名称 |
+|re_customsname   | string  | 自定义货品名称  |
+|re_unit_price   | string  | 单价（元） |
+|re_predict_price   | string  | 预估收入（元） |
+|re_actual_price   | string  | 实际收入（元） |
+|re_userid   | number  | 操作人id |
+|re_username   | string  | 操作人姓名 |
+|re_weight   | string  | 出库重量（公斤） |
+|re_state   | number  | 记录当前出库的状态 1出库成功 2待处理 3已取消 |
+
+
+
+    
+**简要描述：** 
+
+- 出库记录录入
+
+**请求URL：** 
+- ` https://xx.com/warehouse/outbound/add `
+  
+**请求方式：**
+- POST 
+
+**参数：** 
+
+|参数名|必选|类型|说明|
+|:----    |:---|:----- |-----   |
+|token |是  |string |用户token   |
+|re_salesnum |是  |string | 销售订单编号    |
+|re_salestype |是  |string | 销售订单类型(云仓，纸厂，外销平台)    |
+|re_salesdate |是  |string |  	出库日期    |
+|re_entrepot_id |是  |string |  	出自仓库id    |
+|re_entrepot_name 	 |是  |string |   	出自仓库名称   |
+|re_goodsname |是  |string |   	货品名称   |
+|re_customsname |是  |string |  	货品名称(自定义)  |
+|re_unit_price |是  |string |    	单价(元)  |
+|re_predict_price |是  |string |  	预估收入(元)    |
+|re_actual_price |是  |string |  实际收入(元)   |
+|re_weight |是  |string |    	出库重量(公斤)  |
+
+ **返回示例**
+
+``` 
+{
+    "code": 10000,
+    "msg": "出库成功",
+    "data": []
+}
+  
+```
+
+ **返回参数说明** 
+
+|参数名|类型|说明|
+|:-----  |:-----|-----                           |
+|code | int    |状态码    |
+|msg  | string | 提示说明 |
+
+
+ **备注** 
+
+- 更多返回错误代码请看首页的错误代码描述
+
+
+SELECT a.bag_number, FROM_UNIXTIME(a.created_at,'%Y-%m-%d') add_time, (CASE a.wh_state WHEN 2 THEN FROM_UNIXTIME(a.updated_at,'%Y-%m-%d') else '' END) out_time, a.wh_weight, a.wh_packages, a.wh_state, b.id, b.`name`, b.vulgo
+FROM fxb_warehousing_1 AS a 
+LEFT JOIN fxb_admin_commodity as b on a.wh_commodity_id = b.id 
+WHERE a.wh_status = 2 AND a.wh_commodity_id = 1;
+
+
+SELECT b.bag_number, b.wh_time add_time, (CASE a.status WHEN 2 THEN FROM_UNIXTIME(c.re_time,'%Y-%m-%d') else '' END) out_time, d.name, d.vulgo, b.wh_packages, b.wh_weight, (CASE a.status WHEN 2 THEN '已出库' else '在库' END) status, b.wh_id, (CASE a.status WHEN 2 THEN c.re_id else NULL END) re_id
+FROM fxb_inbound_outbound_1 as a 
+JOIN fxb_warehousing_1 as b on a.wh_id = b.wh_id 
+JOIN fxb_retrieval_1 as c on a.re_id = c.re_id 
+JOIN fxb_admin_commodity as d on b.wh_commodity_id = d.id
+WHERE b.wh_status = 2
+
+
+库存统计接口、
+库存明细接口、
+入库单：添加数据入库接口、修改状态接口、列表接口、详情接口、手动入库接口、
+出库单：记录出库数据接口、修改状态接口、列表接口、详情接口、手动出库接口、
+获取分类接口、
+
+
+
+	//php获取今日开始时间戳和结束时间戳
+    $beginToday=mktime(0,0,0,date('m'),date('d'),date('Y'));
+	$endToday=mktime(0,0,0,date('m'),date('d')+1,date('Y'))-1;
+	//php获取昨日起始时间戳和结束时间戳
+	$beginYesterday=mktime(0,0,0,date('m'),date('d')-1,date('Y'));
+	$endYesterday=mktime(0,0,0,date('m'),date('d'),date('Y'))-1;
+	//php获取上周起始时间戳和结束时间戳
+	$beginLastweek=mktime(0,0,0,date('m'),date('d')-date('w')+1-7,date('Y'));
+	$endLastweek=mktime(23,59,59,date('m'),date('d')-date('w')+7-7,date('Y'));
+	//php获取本月起始时间戳和结束时间戳
+	$beginThismonth=mktime(0,0,0,date('m'),1,date('Y'));
+	$endThismonth=mktime(23,59,59,date('m'),date('t'),date('Y'));
+    // 上个月的起始时间:
+    $begin_time = strtotime(date('Y-m-01 00:00:00',strtotime('-1 month')));
+    $end_time =  strtotime(date("Y-m-d 23:59:59", strtotime(-date('d').'day')));
+
+    echo $begin_time.'*****'.$end_time;
+
+

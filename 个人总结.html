@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>程旭辕Personal summary</title>
+	<style type="text/css">
+		div {
+			width: 80%;
+			margin:0 auto;
+			background-color: #C1FFC1;
+			overflow:scroll;
+			height:800px;
+			margin-top: 50px;
+		}
+
+		h1 {
+			text-align: center;
+			color: red;
+		}
+
+		p {
+			font-size: 25px;
+			color: #B452CD;
+		}
+
+		span {
+			font-size: 23px;
+			color:blue;
+			margin-left: 45px;
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<h1>Personal summary</h1>
+		<p>网络攻击分类（五类）</p>
+		<p>一:被动攻击</p>
+		<span>被动攻击是对信息的保密性进行攻击，窃取信息的来源以及数据，对信息加以查看。主要的攻击方式有窃听，嗅探等。对被动攻击采取的防范措施应该是阻止而不是检测。比如进行数据加密。
+	</span>
+		<p>二：主动攻击</p>
+		<span>主动攻击是指攻击信息来源的真实性，数据传输的完整性以及系统服务的可用性。对截取的信息进行修改，添加或删除等操作。主要的攻击方式有欺骗，重放，假冒，拒绝服务和消息篡改等方式，对主动攻击采取的防范措施为数据检测,防火墙等。</span>
+		<p>三：内部人员攻击</p>
+		<span>内部人员攻击指有的人授权在信息安全处理系统物理范围内或有直接访问内部安全信息处理系统的权限，可进行攻击</span>
+		<p>四：物理临近攻击</p>
+		<span>指未授权者在物理上临近网络,系统或设备，目的为修改，收集信息或拒绝为用户服务</span>
+		<p>五：分布攻击</p>
+		<span>指在硬件或软件在开发出来以后和被安装之前，或当其从一个地方转移到另一个地方之前，可进行攻击（修改软硬件）</span>
+		<hr>
+		<p>类 extends</p>
+		<span>在PHP中，子类extends父类，当子类和父类里的方法同时存在，会优先执行本类里的方法</span>
+		<hr>
+		<p>获取当天的开始时间及结束时间</p>
+        <span>$beginToday=mktime(0,0,0,date('m'),date('d'),date('Y'));</span><br>
+        <span>$endToday=mktime(0,0,0,date('m'),date('d')+1,date('Y'))-1;</span>
+        <p>获取昨天的开始时间及结束时间</p>
+        <span>$beginYesterday=mktime(0,0,0,date('m'),date('d')-1,date('Y'));</span><br>
+        <span>$endYesterday=mktime(0,0,0,date('m'),date('d'),date('Y'))-1;</span>
+        <p>获取近七天的时间戳</p>
+        <span>$sevenDays = strtotime('-7 days');</span><br>
+        <span>$now = time();</span>
+        <p>获取本月的开始时间及结束时间</p>
+        <span>$beginThismonth=mktime(0,0,0,date('m'),1,date('Y'));</span><br>
+        <span>$endThismonth=mktime(23,59,59,date('m'),date('t'),date('Y'));</span>
+        <p>获取上个月的开始时间及结束时间</p>
+        <span>$begin_time = strtotime(date('Y-m-01 00:00:00',strtotime('-1 month')));</span><br>
+        <span>$end_time =  strtotime(date("Y-m-d 23:59:59", strtotime(-date('d').'day')));</span>
+        <hr>
+
+	</div>
+</body>
+</html>

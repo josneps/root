@@ -1,0 +1,88 @@
+
+’≈¿ˆ¿§@SAMSUNG MINGW64 /f/PhpStudy2018/PHPTutorial/WWW/laravel5/dzz (develop)
+$ git status
+On branch develop
+Your branch is up to date with 'origin/develop'.
+
+nothing to commit, working tree clean
+
+’≈¿ˆ¿§@SAMSUNG MINGW64 /f/PhpStudy2018/PHPTutorial/WWW/laravel5/dzz (develop)
+$ git branch
+* develop
+
+’≈¿ˆ¿§@SAMSUNG MINGW64 /f/PhpStudy2018/PHPTutorial/WWW/laravel5/dzz (develop)
+$ git checkout origin/master
+Note: checking out 'origin/master'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b <new-branch-name>
+
+HEAD is now at 25c9485 !1 init Merge pull request !1 from dzz/develop
+
+’≈¿ˆ¿§@SAMSUNG MINGW64 /f/PhpStudy2018/PHPTutorial/WWW/laravel5/dzz ((25c9485...))
+$ git checkout master
+Switched to a new branch 'master'
+Branch 'master' set up to track remote branch 'master' from 'origin'.
+
+’≈¿ˆ¿§@SAMSUNG MINGW64 /f/PhpStudy2018/PHPTutorial/WWW/laravel5/dzz (master)
+$ git branch
+  develop
+* master
+
+’≈¿ˆ¿§@SAMSUNG MINGW64 /f/PhpStudy2018/PHPTutorial/WWW/laravel5/dzz (master)
+$ git flow init
+
+Which branch should be used for bringing forth production releases?
+   - develop
+   - master
+Branch name for production releases: [master]
+
+Which branch should be used for integration of the "next release"?
+   - develop
+Branch name for "next release" development: [develop]
+
+How to name your supporting branch prefixes?
+Feature branches? [feature/]
+Bugfix branches? [bugfix/]
+Release branches? [release/]
+Hotfix branches? [hotfix/]
+Support branches? [support/]
+Version tag prefix? []
+Hooks and filters directory? [F:/PhpStudy2018/PHPTutorial/WWW/laravel5/dzz/.git/hooks]
+
+’≈¿ˆ¿§@SAMSUNG MINGW64 /f/PhpStudy2018/PHPTutorial/WWW/laravel5/dzz (master)
+$ git flow feature start 2019-02-14-login
+Switched to a new branch 'feature/2019-02-14-login'
+
+Summary of actions:
+- A new branch 'feature/2019-02-14-login' was created, based on 'develop'
+- You are now on branch 'feature/2019-02-14-login'
+
+Now, start committing on your feature. When done, use:
+
+     git flow feature finish 2019-02-14-login
+
+
+’≈¿ˆ¿§@SAMSUNG MINGW64 /f/PhpStudy2018/PHPTutorial/WWW/laravel5/dzz (feature/2019-02-14-login)
+$ git checkout master
+Switched to branch 'master'
+Your branch is up to date with 'origin/master'.
+
+’≈¿ˆ¿§@SAMSUNG MINGW64 /f/PhpStudy2018/PHPTutorial/WWW/laravel5/dzz (master)
+$ git branch
+  develop
+  feature/2019-02-14-login
+* master
+
+’≈¿ˆ¿§@SAMSUNG MINGW64 /f/PhpStudy2018/PHPTutorial/WWW/laravel5/dzz (master)
+$ git branch -D  feature/2019-02-14-login
+Deleted branch feature/2019-02-14-login (was 4d18be4).
+
+’≈¿ˆ¿§@SAMSUNG MINGW64 /f/PhpStudy2018/PHPTutorial/WWW/laravel5/dzz (master)
+$

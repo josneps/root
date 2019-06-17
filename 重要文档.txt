@@ -1,0 +1,103 @@
+百度地图 ak:
+dTPcbpn7Zub5vbDaTVHwLPtnvdh7VMR4;
+
+百度根据地方获取经纬度：
+http://api.map.baidu.com/geocoder/v2/?address=$city&output=json&ak=$ak&callback=showLocation
+
+淘宝通过IP获取地理位置接口：http://ip.taobao.com/service/getIpInfo.php?ip=$ip
+
+QQ登录 ：http://wiki.open.qq.com/wiki/website/%E6%94%BE%E7%BD%AE%E2%80%9CQQ%E7%99%BB%E5%BD%95%E2%80%9D%E6%8C%89%E9%92%AE_OAuth2.0
+
+申请Appid 和appkey ：https://connect.qq.com/
+
+qq相关：
+	$appid='101353491';						// APPID
+	$appkey='df4e46ba7da52f787c6e3336d30526e4';			// APPKEY
+	$redirect_uri='http://www.iwebshop.com/index.php';		// 回调地址
+
+智能机器人API接口说明
+支持功能：天气、翻译、藏头诗、笑话、歌词、计算、域名信息/备案/收录查询、IP查询、手机号码归属、人工智能聊天
+接口地址：http://api.qingyunke.com/api.php?key=free&appid=0&msg=关键词
+
+查询天气：http://api.qingyunke.com/api.php?key=free&appid=0&msg=天气梅州
+ＩＰ查询：http://api.qingyunke.com/api.php?key=free&appid=0&msg=127.0.0.1
+手机查询：http://api.qingyunke.com/api.php?key=free&appid=0&msg=13430108888
+智能聊天：http://api.qingyunke.com/api.php?key=free&appid=0&msg=你好
+
+iwebshop插件 : https://www.kancloud.cn/sunzoon/iwebshop_lesson/203570
+
+天气接口 ：				   weaid=城市名
+http://www.k780.com/api/weather.future
+http://api.k780.com:88/?app=weather.future&weaid=1&&appkey=10003&sign=b59bc3ef6191eb9f747dd4e83c99f2a4&format=json
+
+PHPExcel手册 ： 
+https://blog.csdn.net/pengone/article/details/47724423
+
+Highcharts 网址 ： 
+https://www.hcharts.cn/
+
+redis 网址 : 
+http://www.runoob.com/redis/redis-tutorial.html
+
+
+js限制input输入：
+https://blog.csdn.net/qiaqia609/article/details/16360091
+
+jQuery在线引用地址
+<script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+
+//bootstrap
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+生成二维码 ：
+http://api.k780.com:88/?app=qr.get&data=程旭辕&level=L&size=10
+
+阿里云服务器：
+https://promotion.aliyun.com/ntms/act/campus2018.html?utm_content=se_1000442272
+
+   WiFi认证 ： 
+http://portal.ikuai8.com/templates/custom/index.html?_r=487934297&terminal=pc&template=custom&gwid=48c591bb0b2e4fd248d81fbb9360387b&router_ver=2.7.13&mac=28:d2:44:a0:d5:a6&user_ip=192.168.15.8&timestamp=1531698171&apmac=&bssid=&ssid=&firmware=IK-RouterOS&refer=
+
+//
+simplexml_load_string() 函数把 XML 字符串载入对象中。
+
+//好东西
+http://www.hewebgl.com/article/articledir/1
+
+http://www.iconfont.cn/search/index
+
+https://blog.csdn.net/post_mans/article/details/72876763
+
+http://adminlte.la998.com/pages/forms/advanced.html
+
+//授权
+https://blog.csdn.net/a419419/article/details/79104508
+
+//yii中获取最新插入的id
+循环插入时使用 Yii::app()->db->getLastInsertID() 获取
+
+//微信小程序post传值加header
+ method: "POST",
+
+ header: {
+    "content-type": "application/x-www-form-urlencoded"
+ },
+
+
+php的内置常量DIRECTORY_SEPARATOR是一个显示系统分隔符的命令，DIRECTORY_SEPARATOR是php的内部常量，不需要任何定义与包含即可直接使用。
+
+yii2 中渲染界面不引入样式
+$this->renderPartial();
+
+一、三私一公：
+
+①、私有静态属性，又来储存生成的唯一对象
+
+②、私有构造函数
+
+③、私有克隆函数，防止克隆——clone
+
+④、公共静态方法，用来访问静态属性储存的对象，如果没有对象，则生成此单例
+

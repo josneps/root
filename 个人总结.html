@@ -392,6 +392,32 @@
         <span>1、PHP的isset()函数 一般用来检测变量是否设置。</span><br>
         <span>2、PHP的empty()函数 判断值为否为空。</span><br>
         <hr>
+        <h1>php魔术方法</h1>
+        <p>1.__construct，__destruct</p>
+        <span>__constuct构建对象的时被调用；</span><br>
+        <span>__destruct明确销毁对象或脚本结束时被调用；</span><br>
+        <p>2.__get，__set</p>
+        <span>__set当给不可访问或不存在属性赋值时被调用</span><br>
+        <span>__get读取不可访问或不存在属性时被调用</span><br>
+        <p>3.__isset，__unset</p>
+        <span>__isset对不可访问或不存在的属性调用isset()或empty()时被调用</span><br>
+        <span>__unset对不可访问或不存在的属性进行unset时被调用</span><br>
+        <p>4.__call，__callStatic</p>
+        <span>__call调用不可访问或不存在的方法时被调用</span><br>        
+        <span>__callStatic调用不可访问或不存在的静态方法时被调用</span><br>        
+        <p>5.__sleep，__wakeup</p>
+        <span>__sleep当使用serialize时被调用，当你不需要保存大对象的所有数据时很有用</span><br>
+        <span>__wakeup当使用unserialize时被调用，可用于做些对象的初始化操作</span><br>
+        <p>6.__clone</p>
+        <span>进行对象clone时被调用，用来调整对象的克隆行为</span>
+        <p>7.__toString</p>
+        <span>当一个类被转换成字符串时被调用</span>
+        <p>8.__invoke</p>
+        <span>当以函数方式调用对象时被调用</span>
+        <p>9.__set_state</p>
+        <span>当调用var_export()导出类时，此静态方法被调用。用__set_state的返回值做为var_export的返回值。</span>
+        <p>10.__debuginfo</p>
+        <span>当调用var_dump()打印对象时被调用（当你不想打印所有属性）适用于PHP5.6版本</span>
 
         <!-- SQL语句相关 -->
         <h1>SQL语句</h1>

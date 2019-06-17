@@ -256,8 +256,7 @@
         <span>数据库默认隔离级别：RR（Repeatable Read，可重复读），MVCC主要适用于Mysql的RC,RR隔离级别</span><br>
         <span>特点：</span><br>
         <span><span>1.MVCC其实广泛应用于数据库技术，像Oracle,PostgreSQL等也引入了该技术，即适用范围广</span></span><br>
-        <span><span>2.MVCC并没有简单的使用数据库的行锁，而是使用了行级锁，row_level_lock,而非InnoDB中的innodb_row_lock.
-                基本原理</span></span><br>
+        <span><span>2.MVCC并没有简单的使用数据库的行锁，而是使用了行级锁，row_level_lock,而非InnoDB中的innodb_row_lock.基本原理</span></span><br>
         <span><span>MVCC的实现，通过保存数据在某个时间点的快照来实现的。这意味着一个事务无论运行多长时间，在同一个事务里能够看到数据一致的视图。根据事务开始的时间不同，同时也意味着在同一个时刻不同事务看到的相同表里的数据可能是不同的。</span></span><br>
         <hr>
 
@@ -393,6 +392,7 @@
         <span>2、PHP的empty()函数 判断值为否为空。</span><br>
         <hr>
         <h1>php魔术方法</h1>
+        <p>PHP中把以两个下划线__开头的方法称为魔术方法(Magic methods)，这些方法在PHP中充当了举足轻重的作用。 </p>
         <p>1.__construct，__destruct</p>
         <span>__constuct构建对象的时被调用；</span><br>
         <span>__destruct明确销毁对象或脚本结束时被调用；</span><br>

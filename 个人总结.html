@@ -162,8 +162,15 @@
         <hr>
 
         <p>数据表结构设计</p>
+        <p>索引定义</p>
+        <span>索引是由数据库表中一列或者多列组合而成，其作用是提高对表中数据的查询速度，建立索引查询速度有数量级提升 ；</span><br>
+        <span>类似于图书的目录，方便快速定位，寻找指定的内容；</span><br>
+        <p>索引的优缺点</p>
+        <span>优点：提高查询数据的速度；</span><br>
+        <span>缺点：创建和维护索引的时间增加了；</span><br>
         <p>MySQL优化（索引，分表，SQL优化，）：</p>
         <span>MySQL Key值（PRI, UNI, MUL）的含义：PRI主键约束、UNI唯一约束、MUL可以重复。</span>
+        <p>索引分类</p>
         <p>1.添加PRIMARY KEY（主键索引）</p>
         <span>mysql>ALTER TABLE `table_name` ADD PRIMARY KEY ( `column` )</span>
         <p>2.添加UNIQUE(唯一索引)</p>

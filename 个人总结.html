@@ -10,15 +10,17 @@
         }
 
         body{
-             background: url(./素材背景图.jpg) no-repeat top left;
+            background: url(./素材背景图.jpg) no-repeat top left;
             background-size: cover;
         }
 
-        div {
+        #table {
+            width: 100%;
+        }
+
+        #content {
             width: 82%;
             margin:0 auto;
-            /*background-color: #C1FFC1;*/
-            /*background-image: url(https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=234634259,4236876085&fm=27&gp=0.jpg);*/
             overflow:scroll;
             height:85%;
             margin-top: 6%;
@@ -49,11 +51,16 @@
             height: 5px;
             background-color: red;
         }
+
+        #music {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-
-    <div>
+    
+    <!-- 内容总结 -->
+    <div id="content">
         <h1>Personal summary</h1>
         <p>网络攻击分类（五类）</p>
         <p>一:被动攻击</p>
@@ -153,6 +160,7 @@
         <p>总结：</p>
         <span>Mysql 主从复制是mysql 高可用，高性能的基础，有了这个基础，mysql 的部署会变得简单、灵活并且具有多样性，从而可以根据不同的业务场景做出灵活的调整。</span>
         <hr>
+
         <p>数据表结构设计</p>
         <p>MySQL优化（索引，分表，SQL优化，）：</p>
         <span>MySQL Key值（PRI, UNI, MUL）的含义：PRI主键约束、UNI唯一约束、MUL可以重复。</span>
@@ -167,6 +175,7 @@
         <p>5.添加多列索引</p>
         <span>mysql>ALTER TABLE `table_name` ADD INDEX index_name ( `column1`, `column2`, `column3` )</span>
         <hr>
+
         <p>mysql连接池：</p>
         <span>大量应用中的重复模块会带来大量的访问，而每个应用与数据库的连接，一般是使用数据库的连接池，这个连接池的资源一般是不释放且一直保留着。假设连接池中有10个连接，中一个数百的服务器集群中，就占用了数据库1000个连接。数据库中的每个连接都是十分珍贵的资源，在资源有限的情况下，这里被占用了，其他能用的资源就少了。</span>
         <p>软件优化：</p>
@@ -183,17 +192,54 @@
         <span>2）读写分离</span><br>
         <span>3）分库（把一张表的数据分别存储在不同的数据库，可用MyCat实现，MyCat，关系型数据库分布式处理软件）。MyCat以代理服务器的形式位于App服务器和后台数据库之间，对外开放的接口是MySQL通信协议，将App服务器传过来的sql语句按照路由的规则拆解转发到不同的后台数据库，并把结果汇总返回。</span>
         <hr>
+
         <p>选择合适的消息队列软件：</p>
         <span>1.当后台系统发现完成某些小任务需要花费很多时间，而且迟点晚成也不影响整个任务的完成进度时，就会把这些小任务交给消息队列。例如发送邮件、短信、推送消息等任务都非常适合在消息队列中处理。</span><br>
         <span>2.把这些任务放在消息队列中，可加快App后台请求都响应时间。同时消息队列也能把大量的并发请求变成串行的请求，来减轻服务器的负担。常见的消息队列软件有：</span><br>
-        <span><span>消息队列软件     ☆ 说明</span></span><br>
-        <span><span>RabbitMQ        ☆ 重量级，适合企业级的开发，自带Web监控界面，方便监控队列的情况</span></span><br>
-        <span><span>Redis           ☆ 轻量级，是一个key-value系统，但是也支持消息队列这种数据结构，App后台中Redis被广泛使用</span></span><br>
-        <span><span>ZeroMQ          ☆ 号称最快，尤其针对大吞吐量的需求场景</span></span><br>
-        <span><span>ActiveMQ        ☆ Apache的一个子项目，能够以代理人和点对点的技术实现队列</span></span><br>
+        <table id="table">
+            <tr>
+                <td><span>消息队列软件</span></td>
+                <td><span>说明</span></td>
+            </tr>
+            <tr>
+                <td><span>RabbitMQ</span></td>
+                <td><span>重量级，适合企业级的开发，自带Web监控界面，方便监控队列的情况</span></td>
+            </tr>
+            <tr>
+                <td><span>Redis</span></td>
+                <td><span>轻量级，是一个key-value系统，但是也支持消息队列这种数据结构，App后台中Redis被广泛使用</span></td>
+            </tr>
+            <tr>
+                <td><span>ZeroMQ</span></td>
+                <td><span>号称最快，尤其针对大吞吐量的需求场景</span></td>
+            </tr>
+            <tr>
+                <td><span>ActiveMQ</span></td>
+                <td><span>Apache的一个子项目，能够以代理人和点对点的技术实现队列</span></td>
+            </tr>
+        </table>
         <p>使用分布式服务实现业务的复用</p>
         <span>1.随着业务不断增加，后台系统由一个单一应用膨胀为一个巨无霸系统，系统中聚合了大量的应用和服务，各个模块之间有很多功能重复实现（例如登录模块），造成了开发、运维、部署的麻烦。</span><br>
         <span>2.大量应用中的重复模块会带来大量的访问，而每个应用与数据库的连接，一般是使用数据库的连接池，这个连接池的资源一般是不释放且一直保留着。假设连接池中有10个连接，中一个数百的服务器集群中，就占用了数据库1000个连接。数据库中的每个连接都是十分珍贵的资源，在资源有限的情况下，这里被占用了，其他能用的资源就少了。</span>
+        <hr>
+        
+        <!-- SQL语句相关 -->
+        <p>sql语句执行顺序</p>
+        <span>(1)from </span><br> 
+        <span>(3) join </span><br>
+        <span>(2) on </span><br>
+        <span>(4) where </span><br>
+        <span>(5)group by(开始使用select中的别名，后面的语句中都可以使用) </span><br>
+        <span>(6) avg,sum.... </span><br>
+        <span>(7)having </span><br>
+        <span>(8) select </span><br>
+        <span>(9) distinct </span><br>
+        <span>(10) order by </span>
+        <hr>
+        <p>SQL语句基础</p>
+        <span></span><br>
+        <span></span><br>
+        <span></span><br>
         <hr>
 
         <!-- MySQL缓存 -->
@@ -475,21 +521,6 @@
         <span>当调用var_dump()打印对象时被调用（当你不想打印所有属性）适用于PHP5.6版本</span>
         <hr>
 
-        <!-- SQL语句相关 -->
-        <h1>SQL语句</h1>
-        <p>sql语句执行顺序</p>
-        <span>(1)from </span><br>
-        <span>(3) join </span><br>
-        <span>(2) on </span><br>
-        <span>(4) where </span><br>
-        <span>(5)group by(开始使用select中的别名，后面的语句中都可以使用) </span><br>
-        <span>(6) avg,sum.... </span><br>
-        <span>(7)having </span><br>
-        <span>(8) select </span><br>
-        <span>(9) distinct </span><br>
-        <span>(10) order by </span><br>
-        <hr>
-
         <!-- 支付宝支付 -->
         <h1>支付宝支付</h1>
         <p>待总结……</p>
@@ -510,5 +541,13 @@
         <span>http://www.cnblogs.com/luohanguo/p/9045391.html</span>
         <hr>
     </div>
+
+    <!-- 背景音乐 -->
+    <div id="music">
+        <audio src="./背景音乐.mp3" id="aud" autoplay="autoplay" controls="controls" loop="true" preload="auto"></audio>
+    </div>
 </body>
+<script>
+    document.getElementById("aud").volume = 0.1;
+</script>
 </html>

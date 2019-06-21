@@ -425,7 +425,7 @@
         <span><span>这个读入并且代换的动作是在 PHP 引擎编译你的程序代码的时候发生的，而不是发生在 PHP 引擎开始执行编译好的程序代码的时候（PHP 3.0 引擎的工作方式是编译一行执行一行，但是到了 PHP 4.0 就有所改变了，PHP 4.0 是先把整个程序代码全部编译完成后，再将这些编译好的程序代码一次执行完毕，在编译的过程中不会执行任何程序代码）。require() 通常来导入静态的内容，而 include() 则适合用来导入动态的程序代码。</span></span><br>
         <span>4.如同 include_once()函数，</span><br>
         <span><span>require_once() 函数会先检查目标档案的内容是不是在之前就已经导入过了，如果是的话，便不会再次重复导入同样的内容。 </span></span><br>
-        <span>php中include和require有什么区别</span><br>
+        <p>php中include和require有什么区别</p>
         <span>平常是没区别的.</span><br>
         <span>当要加载的文件不存在时候, include会给一个warning警告, 然后继续运行. 而require则会给一个fatal error, 直接结束脚本</span><br>
         <hr>

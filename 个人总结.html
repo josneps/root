@@ -416,6 +416,20 @@
         <h1>PHP零碎知识</h1>
         <span>1、PHP的isset()函数 一般用来检测变量是否设置。</span><br>
         <span>2、PHP的empty()函数 判断值为否为空。</span><br>
+        <p>理解require与require_once与include以及include_once的区别</p>
+        <span>1.include() 函数会将指定的档案读入并且执行里面的程序。 </span><br>
+        <span><span>被导入的档案中的程序代码都会被执行，而且这些程序在执行的时候会拥有和源文件中呼叫到 include() 函数的位置相同的变量范围（variable scope）。你可以导入同一个服务器中的静态档案，甚至可以通过合并使用 include() 与 fopen() 函数来导入其它服务器上面的档案。</span></span><br>
+        <span>2.include_once()函数的作用和 include() 是几乎相同的 </span><br>
+        <span><span>唯一的差别在于 include_once() 函数会先检查要导入的档案是不是已经在该程序中的其它地方被导入过了，如果有的话就不会再次重复导入该档案（这项功能有时候是很重要的，比方说要导入的档案里面宣告了一些你自行定义好的函数，那么如果在同一个程序重复导入这个档案，在第二次导入的时候便会发生错误讯息，因为 PHP 不允许相同名称的函数被重复宣告第二次）。</span></span><br>
+        <span>3.require()函数会将目标档案的内容读入，并且把自己本身代换成这些读入的内容。 </span><br>
+        <span><span>这个读入并且代换的动作是在 PHP 引擎编译你的程序代码的时候发生的，而不是发生在 PHP 引擎开始执行编译好的程序代码的时候（PHP 3.0 引擎的工作方式是编译一行执行一行，但是到了 PHP 4.0 就有所改变了，PHP 4.0 是先把整个程序代码全部编译完成后，再将这些编译好的程序代码一次执行完毕，在编译的过程中不会执行任何程序代码）。require() 通常来导入静态的内容，而 include() 则适合用来导入动态的程序代码。</span></span><br>
+        <span>4.如同 include_once()函数，</span><br>
+        <span><span>require_once() 函数会先检查目标档案的内容是不是在之前就已经导入过了，如果是的话，便不会再次重复导入同样的内容。 </span></span><br>
+        <span>php中include和require有什么区别</span><br>
+        <span>平常是没区别的.</span><br>
+        <span>当要加载的文件不存在时候, include会给一个warning警告, 然后继续运行. 而require则会给一个fatal error, 直接结束脚本</span><br>
+        <hr>
+
         <p>静态方法和非静态方法的区别总结如下：</p>
         <span>1、静态方法属于类所有，类实例化前即可使用。也就是不需要new一个对象就可以使用该对象的方法。比如object::fun1()这样的格式；</span><br>
         <span>2、非静态方法可以访问类中的任何成员，静态方法只能访问类中的静态成员；</span><br>

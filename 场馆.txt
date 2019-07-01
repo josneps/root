@@ -1,16 +1,26 @@
-
+﻿
 活动分类表db_classify
 SQL：
     create table db_classify(
         id int(10) primary key not null auto_increment comment '自增id',
         name varchar(40) not null comment '分类名称',
-        status tinyint(1) comment '状态',
+        status tinyint(1) default 0 comment '状态',
         created_at int(10),
         updated_at int(10)
     );ALTER TABLE db_classify COMMENT='活动分类表';
 
 场馆表db_stadium
 SQL：
+    create table db_stadium(
+        s_id int(10) primary key not null auto_increment comment '自增id',
+        s_name varchar(100) not null comment '场馆名称',
+        s_tel char(12) not null comment '场馆电话',
+        s_open_hours varchar(100) not null comment '开放时间',
+        introduce text not null comment '场馆介绍',
+        status tinyint(1) default 0 comment '状态',
+        created_at int(10),
+        updated_at int(10)
+    );ALTER TABLE db_stadium COMMENT='场馆信息表';
     
 
 场馆图片表db_images
@@ -19,7 +29,7 @@ SQL：
         img_id int(10) primary key not null auto_increment comment '自增id',
         s_id int(10) not null comment '场馆id',
         img_url varchar(255) not null comment '图片路径',
-        status tinyint(1) comment '状态',
+        status tinyint(1) default 0 comment '状态',
         created_at int(10),
         updated_at int(10)
     );ALTER TABLE db_images COMMENT='场馆图片表';
@@ -30,19 +40,38 @@ SQL：
         id int(10) primary key not null auto_increment comment '自增id',
         s_id int(10) not null comment '场馆id',
         c_id int(10) not null comment '分类id',
-        status tinyint(1) comment '状态',
+        price decimal(10,2) not null comment '场地价钱',
+        status tinyint(1) default 0 comment '状态',
         created_at int(10),
         updated_at int(10)
     );ALTER TABLE db_stadium_classify COMMENT='场馆与分类关联关系表';
 
-评论表（可以给评论点赞）db_comment
+评论表db_comment
 SQL：
     create table db_comment(
         c_id int(10) primary key not null auto_increment comment '自增id',
         s_id int(10) not null comment '场馆id',
         c_text text not null comment '评论的内容',
-        praise int(11) default 0 not null comment '赞的数量',
-        status tinyint(1) comment '状态',
+        status tinyint(1) default 0 comment '状态',
         created_at int(10),
         updated_at int(10)
     );ALTER TABLE db_comment COMMENT='评论表';
+
+点赞表db_praise
+SQL：
+    create table db_praise(
+        p_id int(10) primary key not null auto_increment comment '自增id',
+        user_id int(10) not null comment '用户id',
+        s_id int(10) not null comment '场馆id',
+        c_id int(10) not null comment '评论id',
+        status tinyint(1) default 0 comment '状态',
+        created_at int(10),
+        updated_at int(10)
+    );ALTER TABLE db_praise COMMENT='点赞表';
+
+
+
+
+日志：日志表主要是记录项目中的所有方法的操作执行，记录用户都做了哪些操作或者是添加修改了哪些数据，这张表里的数据不是接口入库的，而是每一个方法执行的都是都要将数据记录入库
+
+表字段：自增id、用户id、用户名字、操作的内容（已json的数据格式存储）、当前状态、添加时间、修改时间
